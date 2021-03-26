@@ -44,7 +44,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests()
                 .antMatchers("/flightslist/tickets/{id}").hasAuthority("USER")
                 .antMatchers("/flightslist/tickets").hasAuthority("USER")
-               // .antMatchers(HttpMethod.POST,"/submit").hasAuthority("USER")
                 .antMatchers(HttpMethod.GET,"/passengers/{id}").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.DELETE,"/cancel/{ticketId}").hasAuthority("ADMIN")
                 .antMatchers("/flightslist/makeORremove").hasAuthority("MANAGER")
@@ -64,7 +63,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .failureForwardUrl("/loginFail")
                 .and()
                 .rememberMe()
-//                .tokenValiditySeconds((int)TimeUnit.MILLISECONDS.toDays(20))
                 .and()
                 .logout().logoutUrl("/logout")
                 .clearAuthentication(true)
@@ -74,8 +72,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder(10);
     }
-//    @Bean
-//    public void encoder(){
-//        System.out.println(new BCryptPasswordEncoder(10).encode("sergiu"));
-//    }
 }
