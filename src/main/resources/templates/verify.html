@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Verification</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+        <div th:if="${failure != null}" class="alert alert-danger">Error: <span th:text="${failure}"></span></div>
+    </th:if>
+        <div th:if="${success != null}" class="alert alert-success">Success: <span th:text="${success}"></span></div>
+</div>
+<div class="col-sm-offset-2 col-sm-10">
+    <a href="/home" class="btn btn-info">To home page</a>
+</div>
+
+</body>
+</html>

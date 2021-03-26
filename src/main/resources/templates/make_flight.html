@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Make/Delete flight</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body style="background-color: #202020">
+
+<div>
+    <a th:href="@{/flightslist}" class="btn btn-info">Back</a>
+</div>
+
+<div style="margin-bottom:20px">
+    <h2 style="font-size:30px; color:white; margin:20px">Make new</h2>
+    <table>
+        <form th:action="@{/flightslist/newFlight}" method="post">
+            <tr>
+                <th><label style="font-size:25px; color:white; justify:space-between" for="origin">Origin</label></th>
+                <td><input type="text" style="width:150px" name="origin" id="origin"></td>
+            </tr>
+            <tr>
+                <th><label style="font-size:25px; color:white; justify:space-between" for="destination">Destination</label></th>
+                <td><input type="text" style="width:150px" name="destination" id="destination"></td>
+            </tr>
+            <tr>
+                <th><label style="font-size:25px; color:white; justify:space-between" for="timeOfDeparture">Time of Departure</label></th>
+                <td><input type="text" style="width:150px" name="timeOfDeparture" id="timeOfDeparture"></td>
+            </tr>
+            <tr>
+                <th><label style="font-size:25px; color:white; justify:space-between" for="timeOfArrival">Time of Arrival</label></th>
+                <td><input type="text" style="width:150px" name="timeOfArrival" id="timeOfArrival"></td>
+            </tr>
+            <tr>
+                <th><label style="font-size:25px; color:white; justify:space-between" for="timeUntilArrival">Time until Arrival</label></th>
+                <td><input type="text" style="width:150px" name="timeUntilArrival" id="timeUntilArrival"></td>
+            </tr>
+            <tr>
+                <th><label style="font-size:25px; color:white; justify:space-between" for="totalNrOfSits">Total Number of Sits</label></th>
+                <td><input type="number" style="width:150px" name="totalNrOfSits" id="totalNrOfSits"></td>
+            </tr>
+            <tr>
+                <th><label style="font-size:25px; color:white; justify:space-between" for="availableNrOfSits">Available Sits</label></th>
+                <td><input type="number" style="width:150px" name="availableNrOfSits" id="availableNrOfSits"></td>
+            </tr>
+            <th>
+                <th></th><button type="submit" class="btn btn-info">Make</button></th>
+            </tr>
+        </form>
+    </table>
+</div>
+<div th:if="${made != null}" class="alert alert-success">
+    <span th:text="${made}"></span>
+</div>
+<div th:if="${failMake!= null}" class="alert alert-danger">
+    <span th:text="${failMake}"></span>
+</div>
+<div style="margin-bottom:20px">
+    <h2 style="font-size:30px; color:white">Delete Flight</h2>
+    <form th:action="@{/flightslist/deleteFlight}" method="post">
+        <label for="flightId" style="font-size:25px; color:white; justify:space-between">Flight Id</label>
+        <input type="text" style="width:100px" name="flightId" id="flightId" placeholder="ex: 1">
+        <button type="submit" class="btn btn-info">Delete</button>
+    </form>
+</div>
+<div th:if="${deleted!= null}" class="alert alert-success">
+    <span th:text="${deleted}"></span>
+</div>
+<div th:if="${fail!= null}" class="alert alert-danger">
+    <span th:text="${failDelete}"></span>
+</div>
+<style>
+table, th, td {
+border: 1px solid black;
+border-collapse: collapse;
+}
+th, td {
+padding: 5px;
+text-align: left;
+}
+</style>
+</body>
+</html>

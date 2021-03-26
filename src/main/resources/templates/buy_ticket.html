@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>Buy Ticket</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body style="background-color: #202020">
+<div class="page-header">
+    <div class="pull-left">
+        <a href="/logout" class="btn btn-primary">Logout</a>
+        <th>
+            <a href="/flightslist" class="btn btn-primary">Back to Flight List</a>
+        </th>
+    </div>
+    <div>Welcome <span th:text="${session.logged_user}"></span></div>
+    <div class="clearfix"></div>
+</div>
+
+<table class="table table-striped">
+    <tr>
+        <th style="color:white; font-size:35px; vertical-align:middle;">Class Name</th>
+        <th style="color:white; font-size:35px; vertical-align:middle;">Ticket Base Price</th>
+    </tr>
+    <tr id="productAddFormRow"></tr>
+    <tr th:each="planeclass : ${planeClass}">
+        <td>
+            <span style="color:white; font-size:25px; vertical-align:middle; padding-left:30px"
+                  th:text="${planeclass.className}"></span>
+        </td>
+        <td>
+            <span style="color:white; font-size:25px; vertical-align:middle; padding-left:30px"
+                  th:text="${planeclass.classTicketPrice}"></span>
+        </td>
+    </tr>
+
+</table>
+<tr>
+    <!--     <span th:text="${someObject.someProperty != null} ? ${someObject.someProperty}">someValue</span>-->
+    <form action="#" th:action="@{/flightslist/tickets}" class="form-horizontal" method="post">
+        <!--                <input type="number" th:field="${flight.id}" />-->
+<tr>
+    <input type="hidden" th:value="${flight}" name="flightId">
+    <input style="width:100px" type="text" id="className" class="form-horizontal" name="className" value=""
+           placeholder="Class Name">
+</tr>
+<!--            <tr>-->
+<!--                <input type="text" id="destination" class="form-control" name="destination">-->
+<!--            </tr>-->
+
+<button type="submit" style="color:white; font-size:25px;padding-left:20px"
+        class="btn btn-info" >Buy</button>
+    </form>
+</tr>
+<div th:if="${no_free_sits_left != null}" class="alert alert-danger">
+    <span th:text="${no_free_sits_left}"></span>
+</div>
+<div th:if="${successful_buy != null}" class="alert alert-success">
+    <span th:text="${successful_buy}"></span>
+</div>
+</body>
+</html>

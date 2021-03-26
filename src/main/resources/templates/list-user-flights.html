@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org " xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body style="background-color: #202020">
+<div class="page-header">
+    <tr>
+        <td><a href="/logout" class="btn btn-primary"
+               style="color: darkred; font-size: large; font-weight:bold; margin-top:15px">Logout</a></td>
+<!--        <td>Welcome <span th:text="${authentication.getName}"></span></td>-->
+    </tr>
+    <div class="pull-left">
+        <div style="color: white; font-size: large; margin-top:5px ">Welcome <span ></span>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<table class="table table-striped">
+
+    <ul>
+        <form th:action="@{/flightslist}" method="POST">
+            <p style="font-size:35px; font-weight:bold; color:white">Search Flight</p>
+            <th><input type="text" class="form-control" id="origin" name="origin" value="" placeholder="origin"></th>
+            <th><input type="text" class="form-control" id="destination" name="destination" value=""
+                       placeholder="destination"></th>
+            <th>
+                <button type="submit"
+                        style="margin-left:10px; background-color:blue; width: 80px; height: 35px; align-self: center; color: #d3be6c; border-radius:20px">
+                    Search
+                </button>
+            </th>
+            <td sec:authorize="hasAuthority('MANAGER')">
+                <a th:href="@{/flightslist/makeORremove}" class="btn btn-info" style="color: orange; margin-bottom: 5px">Make/Delete Flight</a>
+            </td>
+        </form>
+    </ul>
+    <tr>
+        <th style="color:white; font-size:30px; vertical-align:middle;">Flight Id</th>
+        <th style="color:white; font-size:30px; vertical-align:middle;">Origin</th>
+        <th style="color:white; font-size:30px; vertical-align:middle;">Destination</th>
+        <th style="color:white; font-size:30px; vertical-align:middle;">Time of Departure</th>
+        <th style="color:white; font-size:30px; vertical-align:middle;">Time of Arrival</th>
+        <th style="color:white; font-size:30px; vertical-align:middle;">Time Until Arrival</th>
+        <th sec:authorize="hasAnyAuthority('USER','ADMIN')" style="color:white; font-size:30px; vertical-align:middle;">Actions</th>
+    </tr>
+    <tr th:each="flight : ${flights}">
+        <td style="color:white; font-size:20px;padding-left:20px"><span th:text="${flight.flightId}"></span></td>
+        <td style="color:white; font-size:20px;padding-left:20px"><span th:text="${flight.origin}"></span></td>
+        <td style="color:white; font-size:20px;padding-left:20px"><span th:text="${flight.destination}"></span></td>
+        <td style="color:white; font-size:20px;padding-left:20px"><span th:text="${flight.timeOfDeparture}"></span></td>
+        <td style="color:white; font-size:20px;padding-left:20px"><span th:text="${flight.timeOfArrival}"></span></td>
+        <td style="color:white; font-size:20px;padding-left:20px"><span th:text="${flight.timeUntilArrival}"></span></td>
+        <!--<a th:href="@{/category/edit/{id}(id=${category.idCategory})}">view</a>-->
+        <td sec:authorize="hasAuthority('ADMIN')">
+            <a th:href="@{/flightslist/information/{id}(id=${flight.flightId})}" class="btn btn-info"
+               style="color: orange; margin-bottom: 5px">View Flight Information</a>
+        </td>
+        <td  sec:authorize="hasAuthority('USER')">
+            <a th:href="@{/flightslist/tickets/{id}(id=${flight.flightId})}" class="btn btn-info" style="color: orange; margin-bottom: 5px">Buy Tickets!</a>
+        </td>
+        <td sec:authorize="hasAuthority('ADMIN')">
+            <a th:href="@{/passengers/{id}(id=${flight.flightId})}" class="btn btn-info" style="color: orange; margin-bottom: 5px">See Passengers</a>
+        </td>
+
+    </tr>
+</table>
+</body>
+</html>
