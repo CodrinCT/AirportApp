@@ -8,5 +8,5 @@ The user with the authoroty manager is the one that can create or delete flights
 
 The authentification and controller security is done with the help of spring security.
 For views i used thymeleaf.
-A little bit of html, css and javascript has been used for the home page.
+A little bit of html and css has been used for the home page.
 
