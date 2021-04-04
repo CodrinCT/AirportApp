@@ -38,6 +38,9 @@
             <td sec:authorize="hasAuthority('MANAGER')">
                 <a th:href="@{/flightslist/makeORremove}" class="btn btn-info" style="color: orange; margin-bottom: 5px">Make/Delete Flight</a>
             </td>
+            <td sec:authorize="hasAuthority('USER')">
+                <a th:href="@{/flightslist/myflights}" class="btn btn-info" style="color: orange; margin-bottom: 5px">My Flights</a>
+            </td>
         </form>
     </ul>
     <tr>

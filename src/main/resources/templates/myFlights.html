@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org " xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">>
+<head>
+    <meta charset="UTF-8">
+    <title>My Flights</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+</head>
+<body style="background-color: #202020">
+<div>
+    <a href="/flightslist" class="btn btn-primary">Back to Flight List</a>
+</div>
+<table class="table table-striped">
+    <tr>
+        <th style="color:white; font-size:30px; vertical-align:middle;">Flight Id</th>
+        <th style="color:white; font-size:30px; vertical-align:middle;">Origin</th>
+        <th style="color:white; font-size:30px; vertical-align:middle;">Destination</th>
+        <th style="color:white; font-size:30px; vertical-align:middle;">Time of Departure</th>
+        <th style="color:white; font-size:30px; vertical-align:middle;">Time of Arrival</th>
+        <th style="color:white; font-size:30px; vertical-align:middle;">Time Until Arrival</th>
+    </tr>
+    <tr th:each="myFlight : ${myFlights}" >
+        <td style="color:white; font-size:20px;padding-left:20px"><span th:text="${myFlight.flightId}"></span></td>
+        <td style="color:white; font-size:20px;padding-left:20px"><span th:text="${myFlight.origin}"></span></td>
+        <td style="color:white; font-size:20px;padding-left:20px"><span th:text="${myFlight.destination}"></span></td>
+        <td style="color:white; font-size:20px;padding-left:20px"><span th:text="${myFlight.timeOfDeparture}"></span></td>
+        <td style="color:white; font-size:20px;padding-left:20px"><span th:text="${myFlight.timeOfArrival}"></span></td>
+
+        <td style="color:white; font-size:20px;padding-left:20px"><span th:text="${myFlight.timeUntilArrival}"></span></td>
+    </tr>
+    <tr th:each="ticket : ${tickets}">
+        <th style="color:white; font-size:30px; vertical-align:middle;">Ticket ID</th>
+        <td style="color:white; font-size:20px;padding-left:20px"><span th:text="${ticket.ticketId}"></span></td>
+    </tr>
+    <div>
+        <form th:action="@{/flightslist/cancelMyFlight}" method="post">
+            <label for="ticketId" style="font-size:25px; color:white; justify:space-between">Ticket ID</label>
+            <input type="text" style="width:100px" name="ticketId" id="ticketId" placeholder="ex: 1">
+            <button type="submit" class="btn btn-info">Delete</button>
+        </form>
+    </div>
+<!--    <div th:if="${deleted!= null}" class="alert alert-success">-->
+<!--        <span th:text="${deleted}"></span>-->
+<!--    </div>-->
+<!--    <div th:if="${fail!= null}" class="alert alert-danger">-->
+<!--        <span th:text="${failDelete}"></span>-->
+<!--    </div>-->
+<!--    <div th:if="${made != null}" class="alert alert-success">-->
+<!--        <span th:text="${made}"></span>-->
+<!--    </div>-->
+<!--    <div th:if="${failMake!= null}" class="alert alert-danger">-->
+<!--        <span th:text="${failMake}"></span>-->
+<!--    </div>-->
+</table>
+
+</body>

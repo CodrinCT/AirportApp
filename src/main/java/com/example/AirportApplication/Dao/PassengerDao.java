@@ -1,5 +1,6 @@
 package com.example.AirportApplication.Dao;
 
+import com.example.AirportApplication.Models.FlightsModel;
 import com.example.AirportApplication.Models.PassengerModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -50,5 +51,14 @@ public class PassengerDao {
         List<PassengerModel> passengerModelList;
         passengerModelList = jdbcTemplate.query("SELECT * FROM passengers",this::getPassenger);
         return passengerModelList.size();
+    }
+
+    public Integer getFlightId(ResultSet resultSet, int rowNum) throws SQLException {
+        FlightsModel flightsModel = new FlightsModel();
+        flightsModel.setFlightId(resultSet.getInt("passenger_flight_id"));
+        return flightsModel.getFlightId();
+    }
+    public List<Integer>getFlightIdByPassengerName(String passengerName){
+        return jdbcTemplate.query("select passenger_flight_id from passengers where passenger_name = ?",this::getFlightId,passengerName);
     }
 }

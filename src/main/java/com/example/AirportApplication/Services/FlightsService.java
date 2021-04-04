@@ -3,11 +3,13 @@ package com.example.AirportApplication.Services;
 
 import com.example.AirportApplication.Dao.FlightInfoDao;
 import com.example.AirportApplication.Dao.FlightsDao;
+import com.example.AirportApplication.Dao.PassengerDao;
 import com.example.AirportApplication.Models.FlightInfoModel;
 import com.example.AirportApplication.Models.FlightsModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +22,9 @@ public class FlightsService {
 
     @Autowired
     FlightInfoDao flightInfoDao;
+
+    @Autowired
+    PassengerDao passengerDao;
 
 //    int secondsPassed = 0;
 //    Timer myTimer = new Timer();
@@ -69,5 +74,14 @@ public class FlightsService {
     public Integer doesFlightExists(int flightId){
         int itIs = flightsDao.isFlightThere(flightId);
         return itIs;
+    }
+
+    public List<FlightsModel> getMyFlights(String passengerName){
+        List<FlightsModel> flightsModel = new ArrayList<>();
+        List<Integer> flightsIds=passengerDao.getFlightIdByPassengerName(passengerName);
+        for (int id: flightsIds) {
+            flightsModel.add(flightsDao.getMyFlights(id));
+        }
+        return flightsModel;
     }
 }

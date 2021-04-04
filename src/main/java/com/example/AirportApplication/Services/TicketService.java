@@ -33,8 +33,8 @@ public class TicketService {
        return classDao.getPriceByName(className);
     }
 
-    public TicketModel getTicketByTicketId(String passengerName){
-        return ticketDao.getTicketByTicketId(passengerName);
+    public TicketModel getTicketByPassengerName(String passengerName){
+        return ticketDao.getTicketByPassengerName(passengerName);
     }
 
     public List<ClassModel>  getPlaneClass(){

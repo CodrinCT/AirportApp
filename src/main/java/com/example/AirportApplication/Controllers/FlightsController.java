@@ -3,14 +3,14 @@ package com.example.AirportApplication.Controllers;
 import com.example.AirportApplication.Models.FlightsModel;
 import com.example.AirportApplication.Services.FlightsService;
 import com.example.AirportApplication.Services.PassengersService;
-import org.springframework.beans.MethodInvocationException;
+import com.example.AirportApplication.Services.TicketService;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Date;
 
 @Controller
 @RequestMapping("/flightslist")
@@ -21,6 +21,9 @@ public class FlightsController {
 
     @Autowired
     PassengersService passengersService;
+
+    @Autowired
+    TicketService ticketService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView displayFlightsUser(){
@@ -83,13 +86,11 @@ public class FlightsController {
             mav.setViewName("make_flight");
             mav.addObject("failMake","Every input row must be completed!");
         }
-
-
         return mav;
     }
 
     @PostMapping("/deleteFlight")
-    public ModelAndView deleteFlight(@RequestParam int flightId){
+    public ModelAndView deleteFlightByAdmin(@RequestParam int flightId){
         ModelAndView mav = new ModelAndView();
         if(flightsService.doesFlightExists(flightId) == 1){
         flightsService.deleteFlight(flightId);
@@ -100,6 +101,28 @@ public class FlightsController {
             mav.setViewName("make_flight");
             mav.addObject("failDelete","There is no flight with this id!");
         }
+        return mav;
+    }
+
+    @GetMapping("/myflights")
+    public ModelAndView myFlights(@NotNull Authentication authentication){
+        ModelAndView mav = new ModelAndView();
+        try{
+            mav.addObject("myFlights", flightsService.getMyFlights(authentication.getName()));
+            mav.addObject("tickets",ticketService.getTicketByPassengerName(authentication.getName()));
+        }catch (EmptyResultDataAccessException e){
+            mav.setViewName("myFlights");
+            return mav;
+        }
+        mav.setViewName("myFlights");
+        return mav;
+    }
+    @PostMapping("/cancelMyFlight")
+    public ModelAndView cancelFlight(Authentication authentication, @RequestParam int ticketId){
+        ModelAndView mav = new ModelAndView();
+        passengersService.cancelPassenger(ticketId);
+        ticketService.cancelTicket(authentication.getName());
+        mav.setViewName("redirect:/flightslist/myflights");
         return mav;
     }
 }

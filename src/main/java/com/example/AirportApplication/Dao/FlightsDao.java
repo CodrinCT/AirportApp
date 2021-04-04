@@ -75,4 +75,8 @@ public class FlightsDao {
         }
         return 1;
    }
+
+   public FlightsModel getMyFlights(int flightId){
+        return jdbcTemplate.queryForObject("select * from flights where id = ?", this::getFlight, flightId);
+   }
 }

@@ -38,7 +38,7 @@ public class TicketController {
         int freeSeats = flightsService.getAvailableNumberOfSits(flightId);
         if (freeSeats >=1){
             ticketService.makeTicket(flightId, Integer.parseInt(ticketService.getPriceByName(className)), authentication.getName());
-            TicketModel ticketModel = ticketService.getTicketByTicketId(authentication.getName());
+            TicketModel ticketModel = ticketService.getTicketByPassengerName(authentication.getName());
             passengersService.registerPassengerToFlight(authentication.getName(), ticketModel.getTicketId(), flightId);
             passengersService.changeNumberOfAvailableSeats(flightId);
             mav.setViewName("buy_ticket");

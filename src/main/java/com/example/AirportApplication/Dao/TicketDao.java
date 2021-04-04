@@ -36,7 +36,7 @@ public class TicketDao {
         jdbcTemplate.update("INSERT INTO tickets(flight_id, price, passenger_name) VALUES (?, ?, ?)", flightId, price,passengerName);
     }
     
-    public TicketModel getTicketByTicketId(String passengerName){
+    public TicketModel getTicketByPassengerName(String passengerName){
        return jdbcTemplate.queryForObject("SELECT * FROM tickets WHERE passenger_name = ?", this::getTicket, passengerName);
     }
 }
