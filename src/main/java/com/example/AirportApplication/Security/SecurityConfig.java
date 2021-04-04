@@ -44,8 +44,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.authorizeRequests()
                 .antMatchers("/flightslist/tickets/{id}").hasAuthority("USER")
                 .antMatchers("/flightslist/tickets").hasAuthority("USER")
+<<<<<<< HEAD
                 .antMatchers("/flightslist/myflights").hasAuthority("USER")
                 .antMatchers("/flightslist/cancelMyFlight").hasAuthority("USER")
+=======
+>>>>>>> e1dc3932ddf4ccf01fb5cac3b5b7fc68476edd42
                 .antMatchers(HttpMethod.GET,"/passengers/{id}").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.DELETE,"/cancel/{ticketId}").hasAuthority("ADMIN")
                 .antMatchers("/flightslist/makeORremove").hasAuthority("MANAGER")
@@ -74,8 +77,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder(10);
     }
-//    @Bean
-//    public void encoder(){
-//        System.out.println(new BCryptPasswordEncoder(10).encode("sergiu"));
-//    }
 }
