@@ -22,7 +22,7 @@ public class LoginController {
 
   //  ApplicationUserRole applicationUserRole;
 
-    @RequestMapping("/")
+    @RequestMapping("/home")
     public String displayLogin(){
         return "index";
     }
