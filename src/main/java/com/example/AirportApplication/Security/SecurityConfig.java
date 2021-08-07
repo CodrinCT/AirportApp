@@ -41,14 +41,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.csrf().disable()
+                .authorizeRequests()
                 .antMatchers("/flightslist/tickets/{id}").hasAuthority("USER")
                 .antMatchers("/flightslist/tickets").hasAuthority("USER")
-<<<<<<< HEAD
                 .antMatchers("/flightslist/myflights").hasAuthority("USER")
                 .antMatchers("/flightslist/cancelMyFlight").hasAuthority("USER")
-=======
->>>>>>> e1dc3932ddf4ccf01fb5cac3b5b7fc68476edd42
                 .antMatchers(HttpMethod.GET,"/passengers/{id}").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.DELETE,"/cancel/{ticketId}").hasAuthority("ADMIN")
                 .antMatchers("/flightslist/makeORremove").hasAuthority("MANAGER")

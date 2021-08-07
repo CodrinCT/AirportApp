@@ -58,7 +58,7 @@ public class FlightsController {
             modelAndView.addObject("flights" ,flightsService.showFlightsByDestination(flightsModel.getDestination()));
             System.out.println("destination");
         }else {
-            modelAndView.setViewName("list-user-flights");
+            modelAndView.setViewName("redirect:/flightslist");
         }
 
         return modelAndView;
